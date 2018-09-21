@@ -1,5 +1,5 @@
 # lisc-gnu-toolchain
-LISC指令系统是在RISC-V指令系统基础上开发的全新指令系统，具有以下特点：
+LISC指令系统是在RISC-V指令系统riscv32emc的基础上开发的全新指令系统，具有以下特点：
   1. 16个系统寄存器；
   2. 全新的指令编码；
   3. 大多数指令包含3比特的CLIP位（Cross-Layer Information Parcels），在指令系统中不定义，用于未来定制指令系统之用；
@@ -18,5 +18,5 @@ lisc-gnu-toolchian采用主流的RISC-V工具链[https://github.com/riscv/riscv-
     git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
     cd riscv-gnu-toolchain
     patch -p1 < ../0001-mainstream-RVE.patch
-    ./configure --prefix=/your/gccinstallpath --with-arch=rv32e --with-abi=ilp32e
+    ./configure --prefix=/your/gccinstallpath --with-arch=rv32emc --with-abi=ilp32e
     make -j9
