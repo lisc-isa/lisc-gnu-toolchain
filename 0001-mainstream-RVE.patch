@@ -1,6 +1,6 @@
 diff -uNr riscv-gnu-toolchain/riscv-binutils/gas/config/tc-riscv.c lisc-gnu-toolchain/riscv-binutils/gas/config/tc-riscv.c
 --- riscv-gnu-toolchain/riscv-binutils/gas/config/tc-riscv.c	2018-09-21 13:26:25.919693359 +0800
-+++ lisc-gnu-toolchain/riscv-binutils/gas/config/tc-riscv.c	2018-09-21 13:44:49.474855260 +0800
++++ lisc-gnu-toolchain/riscv-binutils/gas/config/tc-riscv.c	2018-09-28 11:58:03.326846564 +0800
 @@ -674,6 +674,7 @@
  	  case 'm': used_bits |= ENCODE_RVC_LWSP_IMM (-1U); break;
  	  case 'n': used_bits |= ENCODE_RVC_LDSP_IMM (-1U); break;
@@ -93,7 +93,7 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/gas/config/tc-riscv.c lisc-gnu-tool
  		      || regno != X_SP)
 diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv.h lisc-gnu-toolchain/riscv-binutils/include/opcode/riscv.h
 --- riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv.h	2018-09-21 13:26:28.035647505 +0800
-+++ lisc-gnu-toolchain/riscv-binutils/include/opcode/riscv.h	2018-09-21 13:44:51.354807524 +0800
++++ lisc-gnu-toolchain/riscv-binutils/include/opcode/riscv.h	2018-09-28 11:58:03.334846372 +0800
 @@ -31,11 +31,14 @@
  {
    if ((insn & 0x3) != 0x3) /* RVC.  */
@@ -357,7 +357,7 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv.h lisc-gnu-too
  /* Instruction is actually a macro.  It should be ignored by the
 diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h
 --- riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h	2018-09-21 13:26:28.035647505 +0800
-+++ lisc-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h	2018-09-21 13:44:51.934792801 +0800
++++ lisc-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h	2018-09-28 11:58:03.334846372 +0800
 @@ -23,80 +23,80 @@
  #define MASK_FSCSR  0xfff0707f
  #define MATCH_FRCSR 0x302073
@@ -598,7 +598,7 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu
  #define MATCH_MULW 0x200003b
  #define MASK_MULW  0xfe00707f
  #define MATCH_DIVW 0x200403b
-@@ -211,38 +211,180 @@
+@@ -211,38 +211,186 @@
  #define MASK_LR_D  0xf9f0707f
  #define MATCH_SC_D 0x1800302f
  #define MASK_SC_D  0xf800707f
@@ -606,14 +606,18 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu
 -#define MASK_ECALL  0xffffffff
 -#define MATCH_EBREAK 0x100073
 -#define MASK_EBREAK  0xffffffff
+-#define MATCH_URET 0x200073
+-#define MASK_URET  0xffffffff
+-#define MATCH_SRET 0x10200073
+-#define MASK_SRET  0xffffffff
 +//#define MATCH_ECALL 0x73
 +//#define MASK_ECALL  0xffffffff
 +//#define MATCH_EBREAK 0x100073
 +//#define MASK_EBREAK  0xffffffff
- #define MATCH_URET 0x200073
- #define MASK_URET  0xffffffff
- #define MATCH_SRET 0x10200073
- #define MASK_SRET  0xffffffff
++//#define MATCH_URET 0x200073
++//#define MASK_URET  0xffffffff
++//#define MATCH_SRET 0x10200073
++//#define MASK_SRET  0xffffffff
  #define MATCH_HRET 0x20200073
  #define MASK_HRET  0xffffffff
 -#define MATCH_MRET 0x30200073
@@ -624,9 +628,11 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu
  #define MASK_DRET  0xffffffff
  #define MATCH_SFENCE_VM 0x10400073
  #define MASK_SFENCE_VM  0xfff07fff
- #define MATCH_SFENCE_VMA 0x12000073
- #define MASK_SFENCE_VMA  0xfe007fff
+-#define MATCH_SFENCE_VMA 0x12000073
+-#define MASK_SFENCE_VMA  0xfe007fff
 -#define MATCH_WFI 0x10500073
++//#define MATCH_SFENCE_VMA 0x12000073
++//#define MASK_SFENCE_VMA  0xfe007fff
 +//#define MATCH_WFI 0x10500073
 +//#define MASK_WFI  0xffffffff
 +//#define MATCH_CSRRW 0x1073
@@ -734,6 +740,10 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu
 +#define MASK_CSRRSI  0xe00000ff
 +#define MATCH_CSRRCI 0xe00000fb
 +#define MASK_CSRRCI  0xe00000ff
++#define MATCH_URET 0x2000fb
++#define MASK_URET  0xffffffff
++#define MATCH_SRET 0x2200fb
++#define MASK_SRET  0xffffffff
 +#define MATCH_MRET 0x2600fb
 +#define MASK_MRET  0xffffffff
 +#define MATCH_WFI 0x5200fb
@@ -750,6 +760,8 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu
 -#define MASK_CSRRSI  0x707f
 -#define MATCH_CSRRCI 0x7073
 -#define MASK_CSRRCI  0x707f
++#define MATCH_SFENCE_VMA 0x100200fb
++#define MASK_SFENCE_VMA  0xf00fffff 
 +#define MATCH_RDCYCLE 0x40c000fb
 +#define MASK_RDCYCLE  0xfffff0ff
 +#define MATCH_RDTIME 0x40c010fb
@@ -800,7 +812,7 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/include/opcode/riscv-opc.h lisc-gnu
  #define MATCH_FSUB_S 0x8000053
 diff -uNr riscv-gnu-toolchain/riscv-binutils/opcodes/riscv-dis.c lisc-gnu-toolchain/riscv-binutils/opcodes/riscv-dis.c
 --- riscv-gnu-toolchain/riscv-binutils/opcodes/riscv-dis.c	2018-09-21 13:26:28.795631033 +0800
-+++ lisc-gnu-toolchain/riscv-binutils/opcodes/riscv-dis.c	2018-09-21 13:44:50.786821945 +0800
++++ lisc-gnu-toolchain/riscv-binutils/opcodes/riscv-dis.c	2018-09-28 11:58:03.330846468 +0800
 @@ -118,6 +118,7 @@
    struct riscv_private_data *pd = info->private_data;
    int rs1 = (l >> OP_SH_RS1) & OP_MASK_RS1;
@@ -831,7 +843,7 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/opcodes/riscv-dis.c lisc-gnu-toolch
  	      break;
 diff -uNr riscv-gnu-toolchain/riscv-binutils/opcodes/riscv-opc.c lisc-gnu-toolchain/riscv-binutils/opcodes/riscv-opc.c
 --- riscv-gnu-toolchain/riscv-binutils/opcodes/riscv-opc.c	2018-09-21 13:26:28.795631033 +0800
-+++ lisc-gnu-toolchain/riscv-binutils/opcodes/riscv-opc.c	2018-09-21 13:44:50.218836367 +0800
++++ lisc-gnu-toolchain/riscv-binutils/opcodes/riscv-opc.c	2018-09-28 11:58:03.326846564 +0800
 @@ -65,6 +65,16 @@
  
     Because of the lookup algorithm used, entries with the same opcode
@@ -1378,21 +1390,19 @@ diff -uNr riscv-gnu-toolchain/riscv-binutils/opcodes/riscv-opc.c lisc-gnu-toolch
 -{"dret",      "I",   "",     MATCH_DRET, MASK_DRET, match_opcode, 0 },
 -{"sfence.vm", "I",   "",     MATCH_SFENCE_VM, MASK_SFENCE_VM | MASK_RS1, match_opcode, 0 },
 -{"sfence.vm", "I",   "s",    MATCH_SFENCE_VM, MASK_SFENCE_VM, match_opcode, 0 },
--{"sfence.vma","I",   "",     MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS1 | MASK_RS2, match_opcode, INSN_ALIAS },
--{"sfence.vma","I",   "s",    MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS2, match_opcode, INSN_ALIAS },
--{"sfence.vma","I",   "s,t",  MATCH_SFENCE_VMA, MASK_SFENCE_VMA, match_opcode, 0 },
--{"wfi",       "I",   "",     MATCH_WFI, MASK_WFI, match_opcode, 0 },
 +
-+//{"uret",      "I",   "",     MATCH_URET, MASK_URET, match_opcode, 0 },
-+//{"sret",      "I",   "",     MATCH_SRET, MASK_SRET, match_opcode, 0 },
++{"uret",      "I",   "",     MATCH_URET, MASK_URET, match_opcode, 0 },/* lisc */
++{"sret",      "I",   "",     MATCH_SRET, MASK_SRET, match_opcode, 0 },/* lisc */
 +//{"hret",      "I",   "",     MATCH_HRET, MASK_HRET, match_opcode, 0 },
 +{"mret",      "I",   "",     MATCH_MRET, MASK_MRET, match_opcode,  0 },/* lisc */
 +//{"dret",      "I",   "",     MATCH_DRET, MASK_DRET, match_opcode, 0 },
 +//{"sfence.vm", "I",   "",     MATCH_SFENCE_VM, MASK_SFENCE_VM | MASK_RS1, match_opcode, 0 },
 +//{"sfence.vm", "I",   "s",    MATCH_SFENCE_VM, MASK_SFENCE_VM, match_opcode, 0 },
-+//{"sfence.vma","I",   "",     MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS1 | MASK_RS2, match_opcode, INSN_ALIAS },
-+//{"sfence.vma","I",   "s",    MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS2, match_opcode, INSN_ALIAS },
-+//{"sfence.vma","I",   "s,t",  MATCH_SFENCE_VMA, MASK_SFENCE_VMA, match_opcode, 0 },
+ {"sfence.vma","I",   "",     MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS1 | MASK_RS2, match_opcode, INSN_ALIAS },
+ {"sfence.vma","I",   "s",    MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS2, match_opcode, INSN_ALIAS },
+-{"sfence.vma","I",   "s,t",  MATCH_SFENCE_VMA, MASK_SFENCE_VMA, match_opcode, 0 },
+-{"wfi",       "I",   "",     MATCH_WFI, MASK_WFI, match_opcode, 0 },
++{"sfence.vma","I",   "s,t",  MATCH_SFENCE_VMA, MASK_SFENCE_VMA, match_opcode, 0 },/* lisc */
 +{"wfi",       "I",   "",     MATCH_WFI, MASK_WFI, match_opcode, 0 }, /*lisc */
  
  /* Terminate the list.  */
