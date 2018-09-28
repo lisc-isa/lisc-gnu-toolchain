@@ -798,16 +798,16 @@ const struct riscv_opcode riscv_opcodes[] =
 {"csrrc",     "I",   "d,E,s",  MATCH_CSRRC, MASK_CSRRC, match_opcode, 0 },
 {"csrrc",     "I",   "d,E,Z",  MATCH_CSRRCI, MASK_CSRRCI, match_opcode, INSN_ALIAS },
 
-//{"uret",      "I",   "",     MATCH_URET, MASK_URET, match_opcode, 0 },
-//{"sret",      "I",   "",     MATCH_SRET, MASK_SRET, match_opcode, 0 },
+{"uret",      "I",   "",     MATCH_URET, MASK_URET, match_opcode, 0 },/* lisc */
+{"sret",      "I",   "",     MATCH_SRET, MASK_SRET, match_opcode, 0 },/* lisc */
 //{"hret",      "I",   "",     MATCH_HRET, MASK_HRET, match_opcode, 0 },
 {"mret",      "I",   "",     MATCH_MRET, MASK_MRET, match_opcode,  0 },/* lisc */
 //{"dret",      "I",   "",     MATCH_DRET, MASK_DRET, match_opcode, 0 },
 //{"sfence.vm", "I",   "",     MATCH_SFENCE_VM, MASK_SFENCE_VM | MASK_RS1, match_opcode, 0 },
 //{"sfence.vm", "I",   "s",    MATCH_SFENCE_VM, MASK_SFENCE_VM, match_opcode, 0 },
-//{"sfence.vma","I",   "",     MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS1 | MASK_RS2, match_opcode, INSN_ALIAS },
-//{"sfence.vma","I",   "s",    MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS2, match_opcode, INSN_ALIAS },
-//{"sfence.vma","I",   "s,t",  MATCH_SFENCE_VMA, MASK_SFENCE_VMA, match_opcode, 0 },
+{"sfence.vma","I",   "",     MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS1 | MASK_RS2, match_opcode, INSN_ALIAS },
+{"sfence.vma","I",   "s",    MATCH_SFENCE_VMA, MASK_SFENCE_VMA | MASK_RS2, match_opcode, INSN_ALIAS },
+{"sfence.vma","I",   "s,t",  MATCH_SFENCE_VMA, MASK_SFENCE_VMA, match_opcode, 0 },/* lisc */
 {"wfi",       "I",   "",     MATCH_WFI, MASK_WFI, match_opcode, 0 }, /*lisc */
 
 /* Terminate the list.  */
